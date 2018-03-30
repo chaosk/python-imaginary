@@ -62,40 +62,16 @@ class Operation(BaseOperation, abstract=True):
         }
 
 
-ColorTuple = Tuple[int, int, int]
-
 class Crop(Operation):
     width: int
     height: int
-    quality: int  # JPEG only
-    compression: int # PNG only
-    type: str
-    force: bool
-    rotate: int
-    embed: bool
-    norotation: bool
-    noprofile: bool
-    flip: bool
-    flop: bool
-    stripmeta: bool
-    extend: str
-    background: ColorTuple
-    colorspace: str
-    sigma: float
-    minampl: float
-    gravity: str
-    field: str = 'file'
-
-    def get_background(self, value):
-        return ','.join(str(c) for c in value)
-
 
 class SmartCrop(Crop):
     pass
 
 
 class Zoom(Crop):
-    factor = float
+    factor: float
 
 
 IgnoreFailure = bool

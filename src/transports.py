@@ -36,10 +36,10 @@ class Transport(ABC):
 class MockTransport(Transport):
 
     def get(self, url: Text, params: Params):
-        logger.info('mocking GET %(url)s (%(params)s)', url=url, params=params)
+        logger.info('mocking GET %s (%s)', url, params)
 
     def post(self, url: Text, data: Params, files: Params):
-        logger.info('mocking POST %(url)s (%(data)s)', url=url, data=data)
+        logger.info('mocking POST %s (%s)', url, data)
 
 
 class RequestsTransport(Transport):
