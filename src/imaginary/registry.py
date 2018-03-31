@@ -1,9 +1,10 @@
 from typing import (
+    TYPE_CHECKING,
     Dict,
     Text,
     Type,
-    TYPE_CHECKING,
 )
+
 
 if TYPE_CHECKING:
     from .operations import Operation

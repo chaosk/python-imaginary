@@ -1,4 +1,13 @@
-from typing import Optional, Dict, Text, Any, Union, Tuple, TYPE_CHECKING
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    Dict,
+    Optional,
+    Text,
+    Tuple,
+    Union,
+)
+
 
 if TYPE_CHECKING:
     from .operations import Operation

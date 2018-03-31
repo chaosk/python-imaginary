@@ -1,10 +1,10 @@
 from typing import (
+    IO,
+    TYPE_CHECKING,
     Any,
     Callable,
-    IO,
     Text,
     Type,
-    TYPE_CHECKING,
 )
 
 from .operations import (
@@ -13,6 +13,7 @@ from .operations import (
 )
 from .registry import registry as default_registry
 from .types import Response
+
 
 if TYPE_CHECKING:
     from .client import Imaginary

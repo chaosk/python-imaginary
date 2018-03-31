@@ -1,18 +1,22 @@
 from typing import (
-    Iterable,
     Any,
     Dict,
+    Iterable,
+    Iterator,
     List,
     Optional,
+    Text,
     Tuple,
     Type,
     Union,
-    Text,
-    Iterator,
 )
 
-from .registry import registry as default_registry, Registry
-from .types import PipelineOperation, OperationWithFailureFlag
+from .registry import Registry
+from .registry import registry as default_registry
+from .types import (
+    OperationWithFailureFlag,
+    PipelineOperation,
+)
 
 
 class Operation:

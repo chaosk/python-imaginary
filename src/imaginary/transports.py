@@ -3,16 +3,16 @@ from abc import (
     ABC,
     abstractmethod,
 )
-from typing import (
-    Any,
-    Dict,
-    Text,
-)
+from typing import Text
 
 import requests
 
 from .exceptions import TransportError
-from .types import Params, Response
+from .types import (
+    Params,
+    Response,
+)
+
 
 __all__ = [
     'MockTransport',

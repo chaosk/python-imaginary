@@ -3,9 +3,9 @@ from os import PathLike
 from typing import (
     Dict,
     Optional,
-    Union,
     Tuple,
     Type,
+    Union,
 )
 from urllib.parse import urljoin
 
@@ -13,7 +13,10 @@ import requests
 
 from src.imaginary.client import Imaginary
 from src.imaginary.exceptions import ImaginaryError
-from src.imaginary.operations import Crop, Zoom
+from src.imaginary.operations import (
+    Crop,
+    Zoom,
+)
 from src.imaginary.transports import MockTransport
 
 
@@ -35,4 +38,3 @@ with open('test.png', 'rb') as f:
         )
     except ImaginaryError as e:
         print(e)
-

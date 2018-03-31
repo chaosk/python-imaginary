@@ -1,7 +1,7 @@
 from io import BytesIO
 from typing import (
-    Dict,
     IO,
+    Dict,
     Optional,
     Text,
     Tuple,
@@ -12,10 +12,14 @@ from urllib.parse import urljoin
 
 from .image import Image
 from .transports import (
-    Transport,
     RequestsTransport,
+    Transport,
 )
-from .types import Params, Response
+from .types import (
+    Params,
+    Response,
+)
+
 
 __all__ = [
     'Imaginary',
