@@ -20,6 +20,11 @@ CLASSIFIERS = [
 INSTALL_REQUIRES = [
     'requests',
 ]
+TESTS_REQUIRE = [
+    'pytest',
+    'pytest-cov',
+    'pytest-mock',
+]
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 
@@ -68,4 +73,7 @@ if __name__ == '__main__':
         zip_safe=False,
         classifiers=CLASSIFIERS,
         install_requires=INSTALL_REQUIRES,
+        extra_requires={
+            'tests': TESTS_REQUIRE,
+        },
     )

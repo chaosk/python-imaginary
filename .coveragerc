@@ -1,0 +1,4 @@
+[run]
+include = src/imaginary/*
+omit = *tests*
+branch = true
