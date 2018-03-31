@@ -1,0 +1,20 @@
+language: python
+
+sudo: false
+
+matrix:
+  include:
+    - python: 3.6
+      env: py3.6
+python:
+  - "3.6"
+
+install:
+  - pip install -r requirements.txt
+
+script:
+  - tox
+  - mypy src/
+
+after_success:
+  - coveralls

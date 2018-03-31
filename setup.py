@@ -1,6 +1,7 @@
 import codecs
 import os
 import re
+from typing import Text
 
 from setuptools import (
     find_packages,
@@ -18,18 +19,19 @@ CLASSIFIERS = [
     'Programming Language :: Python :: 3.6',
 ]
 INSTALL_REQUIRES = [
-    'requests',
+    'requests>=2.14.0',
 ]
 TESTS_REQUIRE = [
-    'pytest',
-    'pytest-cov',
-    'pytest-mock',
+    'mypy>=0.580',
+    'pytest>=3.5.0',
+    'pytest-cov>=2.5.1',
+    'pytest-mock>=1.7.1',
 ]
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 
 
-def read(*parts):
+def read(*parts: Text) -> bytes:
     """
     Build an absolute path from *parts* and and return the contents of the
     resulting file.  Assume UTF-8 encoding.
@@ -41,7 +43,7 @@ def read(*parts):
 META_FILE = read(META_PATH)
 
 
-def find_meta(meta):
+def find_meta(meta: Text) -> Text:
     """
     Extract __*meta*__ from META_FILE.
     """
@@ -72,8 +74,7 @@ if __name__ == '__main__':
         package_dir={'': 'src'},
         zip_safe=False,
         classifiers=CLASSIFIERS,
+        python_requires=">=3.6",
         install_requires=INSTALL_REQUIRES,
-        extra_requires={
-            'tests': TESTS_REQUIRE,
-        },
+        tests_require=TESTS_REQUIRE,
     )

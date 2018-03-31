@@ -1,7 +1,4 @@
 
-test:
-	pytest
-
 isort:
 	isort -y
 

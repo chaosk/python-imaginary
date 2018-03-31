@@ -1,0 +1,4 @@
+-r base.txt
+isort==4.3.4
+mypy>=0.580
+yapf==0.21.0
