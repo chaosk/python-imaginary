@@ -57,7 +57,7 @@ def test_image_operation_as_attribute(image, registry, mocker):
         foo: str
 
     mocker.patch.object(image.client, 'post')
-    result = image.testop(foo=1)
+    image.testop(foo=1)
 
     image.client.post.assert_called_once_with(
         'testop',
