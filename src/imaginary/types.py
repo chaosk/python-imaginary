@@ -5,6 +5,7 @@ from typing import (
     Optional,
     Text,
     Tuple,
+    Type,
     Union,
 )
 
@@ -14,6 +15,7 @@ if TYPE_CHECKING:
 IgnoreFailure = bool
 OperationWithFailureFlag = Tuple['Operation', IgnoreFailure]
 PipelineOperation = Union['Operation', OperationWithFailureFlag, ]
+TypeOperation = Type['Operation']
 
 RequiredParams = Dict[Text, Any]
 OptionalParams = Optional[RequiredParams]

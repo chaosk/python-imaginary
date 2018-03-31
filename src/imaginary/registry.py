@@ -5,8 +5,7 @@ from typing import (
     Type,
 )
 
-if TYPE_CHECKING:
-    from .operations import Operation
+from .types import TypeOperation
 
 __all__ = [
     'Registry',
@@ -18,12 +17,18 @@ class Registry:
     """Operation registry, populated automatically
     during Operation subclassing.
     """
-    _registry: Dict[str, Type['Operation']] = {}
+    _registry: Dict[str, TypeOperation]
 
-    def __getitem__(self, name: Text) -> Type['Operation']:
+    def __init__(self) -> None:
+        self._registry = {}
+
+    def __getitem__(self, name: Text) -> TypeOperation:
         return self._registry[name]
 
-    def register(self, operation: Type['Operation']) -> None:
+    def __contains__(self, name: Text) -> bool:
+        return name in self._registry
+
+    def register(self, operation: TypeOperation) -> None:
         name = operation._name()
         if name in self._registry:
             raise KeyError(f'Operation \'{repr(name)}\' is already registered')

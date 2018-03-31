@@ -15,12 +15,12 @@ from .registry import Registry
 from .registry import registry as default_registry
 from .types import (
     OperationWithFailureFlag,
+    Params,
     PipelineOperation,
 )
 
 
 class Operation:
-    name: Text
 
     def __init_subclass__(
         cls: Type['Operation'],
@@ -35,17 +35,18 @@ class Operation:
 
     @classmethod
     def _name(cls) -> Text:
-        try:
-            return cls.name
-        except AttributeError:
-            return cls.__name__.lower()
+        return cls.__name__.lower()
 
     @classmethod
     def _api_name(cls) -> Text:
         return cls._name()
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
-        self._arguments = expected_attrs = self.__annotations__.keys()
+        try:
+            annotations = self.__annotations__
+        except AttributeError:
+            return
+        self._arguments = expected_attrs = annotations.keys()
         for key, value in kwargs.items():
             if key not in expected_attrs:
                 raise TypeError(f'Unexpected keyword argument \'{key}\'')
@@ -62,14 +63,8 @@ class Operation:
         )
         return f'<{self.__class__.__name__} {repr_attributes}>'
 
-    def value(self) -> dict:
+    def value(self) -> Params:
         return {key: getattr(self, key) for key in self._arguments}
-
-    def as_dict(self) -> dict:
-        return {
-            'operation': self._name(),
-            'params': self.value(),
-        }
 
 
 class Crop(Operation):
@@ -81,7 +76,7 @@ class SmartCrop(Crop):
     pass
 
 
-class Zoom(Crop):
+class Zoom(Operation):
     factor: float
 
 
@@ -100,7 +95,7 @@ class Pipeline(Operation):
                 'ignore_failure': ignore_failure,
             }
 
-    def value(self) -> dict:
+    def value(self) -> Params:
         return {
             'operations': list(self.pipeline_values()),
         }
