@@ -7,7 +7,6 @@ from setuptools import (
     setup,
 )
 
-
 NAME = 'imaginary'
 PACKAGES = find_packages(where='src')
 META_PATH = os.path.join('src', 'imaginary', '__init__.py')
@@ -42,8 +41,9 @@ def find_meta(meta):
     Extract __*meta*__ from META_FILE.
     """
     meta_match = re.search(
-        r"^__{meta}__ = ['\"]([^'\"]*)['\"]".format(meta=meta),
-        META_FILE, re.M
+        r'^__{meta}__ = [\'"]([^\'"]*)[\'"]'.format(meta=meta),
+        META_FILE,
+        re.M,
     )
     if meta_match:
         return meta_match.group(1)

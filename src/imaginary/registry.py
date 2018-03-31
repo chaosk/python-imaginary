@@ -5,7 +5,6 @@ from typing import (
     Type,
 )
 
-
 if TYPE_CHECKING:
     from .operations import Operation
 

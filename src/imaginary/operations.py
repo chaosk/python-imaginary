@@ -58,16 +58,12 @@ class Operation:
 
     def __repr__(self) -> str:
         repr_attributes = ', '.join(
-            f'{key}={repr(getattr(self, key))}'
-            for key in self._arguments
+            f'{key}={repr(getattr(self, key))}' for key in self._arguments
         )
         return f'<{self.__class__.__name__} {repr_attributes}>'
 
     def value(self) -> dict:
-        return {
-            key: getattr(self, key)
-            for key in self._arguments
-        }
+        return {key: getattr(self, key) for key in self._arguments}
 
     def as_dict(self) -> dict:
         return {
@@ -79,6 +75,7 @@ class Operation:
 class Crop(Operation):
     width: int
     height: int
+
 
 class SmartCrop(Crop):
     pass

@@ -13,7 +13,6 @@ from .types import (
     Response,
 )
 
-
 __all__ = [
     'MockTransport',
     'RequestsTransport',

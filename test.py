@@ -19,7 +19,6 @@ from src.imaginary.operations import (
 )
 from src.imaginary.transports import MockTransport
 
-
 logging.basicConfig(level=logging.INFO)
 
 imaginary = Imaginary('http://imaginary/', transport=MockTransport())

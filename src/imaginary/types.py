@@ -8,22 +8,15 @@ from typing import (
     Union,
 )
 
-
 if TYPE_CHECKING:
     from .operations import Operation
 
 IgnoreFailure = bool
 OperationWithFailureFlag = Tuple['Operation', IgnoreFailure]
-PipelineOperation = Union[
-    'Operation',
-    OperationWithFailureFlag,
-]
+PipelineOperation = Union['Operation', OperationWithFailureFlag, ]
 
 RequiredParams = Dict[Text, Any]
 OptionalParams = Optional[RequiredParams]
-Params = Union[
-    OptionalParams,
-    RequiredParams,
-]
+Params = Union[OptionalParams, RequiredParams, ]
 
 Response = bytes

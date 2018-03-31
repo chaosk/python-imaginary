@@ -14,11 +14,9 @@ from .operations import (
 from .registry import registry as default_registry
 from .types import Response
 
-
 if TYPE_CHECKING:
     from .client import Imaginary
     from .registry import Registry
-
 
 __all__ = [
     'Image',
@@ -54,7 +52,10 @@ class Image:
         try:
             operation_class: Type[Operation] = self.registry[name]
         except KeyError as e:
-            raise AttributeError(f'\'{self.__class__.__name__}\' object has no attribute \'{name}\'') from e
+            class_name = self.__class__.__name__
+            raise AttributeError(
+                f'\'{class_name}\' object has no attribute \'{name}\''
+            ) from e
 
         def inner(*args: Any, **kwargs: Any) -> 'Image':
             return self(operation_class(*args, **kwargs))
