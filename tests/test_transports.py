@@ -2,7 +2,10 @@ import pytest
 from requests.exceptions import RequestException
 
 from imaginary.exceptions import TransportError
-from imaginary.transports import MockTransport, RequestsTransport
+from imaginary.transports import (
+    MockTransport,
+    RequestsTransport,
+)
 from imaginary.types import Response
 
 

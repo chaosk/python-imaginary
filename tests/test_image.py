@@ -76,6 +76,7 @@ def test_image_unknown_operation_as_attribute_fails(image):
 
 
 def test_image_pipeline_attribute(image, registry, mocker):
+
     class TestOp(Operation, registry=registry):
         foo: str
 
