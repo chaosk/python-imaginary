@@ -14,6 +14,12 @@ from .types import (
     PipelineOperation,
 )
 
+__all__ = [
+    'Crop',
+    'Pipeline',
+    'Zoom',
+]
+
 
 class Operation:
 

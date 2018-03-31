@@ -1,4 +1,5 @@
 from .client import Imaginary  # noqa: F401
+from .operations import *  # noqa: F401, F403
 
 __version__ = '0.0.1'
 
