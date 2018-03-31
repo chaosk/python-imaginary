@@ -37,7 +37,7 @@ class Image:
         self.file = file
         self.registry = registry
 
-    def __call__(self, operation: Operation) -> 'Image':
+    def __call__(self, operation: Operation) -> bytes:
         value = operation.value()
         return self.client.post(
             operation._api_name(),
@@ -56,10 +56,10 @@ class Image:
                 f'\'{class_name}\' object has no attribute \'{name}\''
             ) from e
 
-        def inner(*args: Any, **kwargs: Any) -> 'Image':
+        def inner(*args: Any, **kwargs: Any) -> bytes:
             return self(operation_class(*args, **kwargs))
 
         return inner
 
-    def pipeline(self, *operations: Operation) -> 'Image':
+    def pipeline(self, *operations: Operation) -> bytes:
         return self(Pipeline(operations=operations))

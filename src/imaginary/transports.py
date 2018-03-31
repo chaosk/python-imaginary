@@ -1,8 +1,5 @@
+import abc
 import logging
-from abc import (
-    ABC,
-    abstractmethod,
-)
 from typing import Text
 
 import requests
@@ -22,13 +19,13 @@ __all__ = [
 logger = logging.getLogger(__name__)
 
 
-class Transport(ABC):
+class Transport(abc.ABC):
 
-    @abstractmethod
+    @abc.abstractmethod
     def get(self, url: Text, params: Params) -> Response:
         ...
 
-    @abstractmethod
+    @abc.abstractmethod
     def post(self, url: Text, data: Params, files: Params) -> Response:
         ...
 

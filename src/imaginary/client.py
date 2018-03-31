@@ -23,16 +23,13 @@ __all__ = [
 
 class Imaginary:
     url: Text
-    key: Optional[Text]
 
     def __init__(
         self,
         url: Text,
-        key: Optional[Text] = None,
         transport: Transport = RequestsTransport(),
     ) -> None:
         self.url = url
-        self.key = key
         self.transport = transport
 
     def post(self, path: Text, data: Params, files: Params) -> Response:
@@ -63,6 +60,6 @@ class Imaginary:
         with open(path, 'rb') as file:
             return Image(self, file)
 
-    def from_bytes(self, bytes: bytes) -> Image:
-        with BytesIO(bytes) as file:
-            return Image(self, file)
+    def from_bytes(self, bytes_: bytes) -> Image:
+        file = BytesIO(bytes_)
+        return Image(self, file)
