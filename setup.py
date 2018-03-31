@@ -22,6 +22,7 @@ INSTALL_REQUIRES = [
     'requests>=2.14.0',
 ]
 TESTS_REQUIRE = [
+    'coveralls>=1.3.0',
     'mypy>=0.580',
     'pytest-cov>=2.5.1',
     'pytest-mock>=1.7.1',
