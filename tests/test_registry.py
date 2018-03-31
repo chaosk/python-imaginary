@@ -9,7 +9,7 @@ def registry():
     return Registry()
 
 
-def test_register(registry):
+def test_registry_register(registry):
 
     class TestOp(Operation, registry=registry):
         pass
@@ -18,7 +18,7 @@ def test_register(registry):
     assert registry[TestOp._name()]
 
 
-def test_abstract_operation_not_registered(registry):
+def test_registry_abstract_operation_not_registered(registry):
 
     class TestOp(Operation, registry=registry, abstract=True):
         pass
@@ -26,7 +26,7 @@ def test_abstract_operation_not_registered(registry):
     assert TestOp._name() not in registry
 
 
-def test_registering_operation_twice_fails(registry):
+def test_registry_registering_operation_twice_fails(registry):
 
     class TestOp(Operation, registry=registry):
         pass

@@ -9,7 +9,7 @@ def registry():
     return Registry()
 
 
-def test_name(registry):
+def test_operations_name(registry):
 
     class TestOp(Operation, registry=registry):
         pass
@@ -17,7 +17,7 @@ def test_name(registry):
     assert TestOp()._name() == 'testop'
 
 
-def test_api_name(registry):
+def test_operations_api_name(registry):
 
     class TestOp(Operation, registry=registry):
         pass
@@ -25,7 +25,7 @@ def test_api_name(registry):
     assert TestOp()._api_name() == 'testop'
 
 
-def test_repr(registry):
+def test_operations_repr(registry):
 
     class TestOp(Operation, registry=registry):
         foo: str
@@ -34,7 +34,7 @@ def test_repr(registry):
     assert repr(TestOp(foo='baz', bar=10)) == "<TestOp foo='baz', bar=10>"
 
 
-def test_value(registry):
+def test_operations_value(registry):
 
     class TestOp(Operation, registry=registry):
         foo: str
@@ -47,7 +47,7 @@ def test_value(registry):
     assert TestOp(foo='baz', bar=10).value() == expected
 
 
-def test_missing_required_argument(registry):
+def test_operations_missing_required_argument(registry):
 
     class TestOp(Operation, registry=registry):
         foo: str
@@ -57,7 +57,7 @@ def test_missing_required_argument(registry):
         assert TestOp(foo='baz')
 
 
-def test_unexpected_argument(registry):
+def test_operations_unexpected_argument(registry):
 
     class TestOp(Operation, registry=registry):
         foo: str
@@ -67,7 +67,7 @@ def test_unexpected_argument(registry):
         assert TestOp(foo='baz', bar=1, baz=4.7)
 
 
-def test_pipeline_value(registry):
+def test_operations_pipeline_value(registry):
     from imaginary.operations import Pipeline
 
     class TestPipeline(Pipeline, registry=registry):
