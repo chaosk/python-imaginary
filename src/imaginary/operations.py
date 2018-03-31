@@ -11,19 +11,23 @@ from typing import (
     Iterator,
 )
 
-from .registry import registry
+from .registry import registry as default_registry, Registry
 from .types import PipelineOperation, OperationWithFailureFlag
 
 
-class BaseOperation:
+class Operation:
     name: Text
 
-    def __init_subclass__(cls: Type['BaseOperation'], **kwargs: Any) -> None:
-        _registry = kwargs.get('registry', registry)
+    def __init_subclass__(
+        cls: Type['Operation'],
+        registry: Optional[Registry] = None,
+        abstract: bool = False,
+    ) -> None:
+        if registry is None:
+            registry = default_registry
         super().__init_subclass__()
-
-        if not kwargs.get('abstract', False):
-            _registry.register(cls)
+        if not abstract:
+            registry.register(cls)
 
     @classmethod
     def _name(cls) -> Text:
@@ -54,9 +58,6 @@ class BaseOperation:
             for key in self._arguments
         )
         return f'<{self.__class__.__name__} {repr_attributes}>'
-
-
-class Operation(BaseOperation, abstract=True):
 
     def value(self) -> dict:
         return {
