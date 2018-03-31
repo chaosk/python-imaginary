@@ -12,7 +12,6 @@ from .operations import (
     Pipeline,
 )
 from .registry import registry as default_registry
-from .types import Response
 
 if TYPE_CHECKING:
     from .client import Imaginary

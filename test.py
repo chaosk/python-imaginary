@@ -1,15 +1,4 @@
 import logging
-from os import PathLike
-from typing import (
-    Dict,
-    Optional,
-    Tuple,
-    Type,
-    Union,
-)
-from urllib.parse import urljoin
-
-import requests
 
 from src.imaginary.client import Imaginary
 from src.imaginary.exceptions import ImaginaryError

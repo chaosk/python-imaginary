@@ -33,5 +33,5 @@ def test_registering_operation_twice_fails(registry):
 
     with pytest.raises(KeyError):
 
-        class TestOp(Operation, registry=registry):
+        class TestOp(Operation, registry=registry):  # noqa: F811
             pass

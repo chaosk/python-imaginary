@@ -1,12 +1,8 @@
 from io import BytesIO
 from typing import (
     IO,
-    Dict,
     Optional,
     Text,
-    Tuple,
-    Type,
-    Union,
 )
 from urllib.parse import urljoin
 

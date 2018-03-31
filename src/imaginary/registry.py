@@ -1,8 +1,6 @@
 from typing import (
-    TYPE_CHECKING,
     Dict,
     Text,
-    Type,
 )
 
 from .types import TypeOperation
