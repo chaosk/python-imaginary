@@ -4,7 +4,7 @@ __version__ = '0.0.1'
 
 __title__ = 'imaginary'
 __description__ = 'Client library for imaginary, an image processing microservice'  # noqa: E501
-__uri__ = 'https://github.com/chaosk/python-imaginary-draft'
+__uri__ = 'https://github.com/chaosk/python-imaginary'
 __doc__ = __description__ + ' <' + __uri__ + '>'
 
 __author__ = 'Krzysztof Socha'
