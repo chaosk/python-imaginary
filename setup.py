@@ -23,9 +23,10 @@ INSTALL_REQUIRES = [
 ]
 TESTS_REQUIRE = [
     'mypy>=0.580',
-    'pytest>=3.5.0',
     'pytest-cov>=2.5.1',
     'pytest-mock>=1.7.1',
+    'pytest>=3.5.0',
+    'tox>=2.9.1',
 ]
 
 HERE = os.path.abspath(os.path.dirname(__file__))
