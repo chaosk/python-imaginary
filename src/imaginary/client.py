@@ -35,14 +35,13 @@ class Imaginary:
         self.key = key
         self.transport = transport
 
-    def post(self, path: Text, data: Params, files: Params) -> Image:
+    def post(self, path: Text, data: Params, files: Params) -> Response:
         url = urljoin(self.url, path)
-        response = self.transport.post(
+        return self.transport.post(
             url=url,
             data=data,
             files=files,
         )
-        return self.from_bytes(response)
 
     def get(self, path: Text, params: Params = None) -> Response:
         url = urljoin(self.url, path)
