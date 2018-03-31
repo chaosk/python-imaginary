@@ -15,6 +15,7 @@ from .transports import (
     Transport,
     RequestsTransport,
 )
+from .types import Params, Response
 
 __all__ = [
     'Imaginary',
@@ -35,34 +36,35 @@ class Imaginary:
         self.key = key
         self.transport = transport
 
-    def post(self, path: Text, data, files):
+    def post(self, path: Text, data: Params, files: Params) -> Image:
         url = urljoin(self.url, path)
-        self.transport.post(
+        response = self.transport.post(
             url=url,
             data=data,
             files=files,
         )
+        return self.from_bytes(response)
 
-    def get(self, path: Text, params=None):
+    def get(self, path: Text, params: Params = None) -> Response:
         url = urljoin(self.url, path)
-        self.transport.get(
+        return self.transport.get(
             url=url,
             params=params,
         )
 
-    def health(self):
+    def health(self) -> Response:
         return self.get('/health')
 
-    def versions(self):
+    def versions(self) -> Response:
         return self.get('/')
 
-    def __call__(self, file: IO[bytes]):
+    def __call__(self, file: IO[bytes]) -> Image:
         return Image(self, file)
 
-    def from_path(self, path: Text):
+    def from_path(self, path: Text) -> Image:
         with open(path, 'rb') as file:
             return Image(self, file)
 
-    def from_bytes(self, bytes: bytes):
+    def from_bytes(self, bytes: bytes) -> Image:
         with BytesIO(bytes) as file:
             return Image(self, file)

@@ -1,4 +1,5 @@
 from typing import (
+    Any,
     Callable,
     IO,
     Text,
@@ -11,6 +12,7 @@ from .operations import (
     Pipeline,
 )
 from .registry import registry as default_registry
+from .types import Response
 
 if TYPE_CHECKING:
     from .client import Imaginary
@@ -37,7 +39,7 @@ class Image:
         self.file = file
         self.registry = registry
 
-    def __call__(self, operation: Operation):
+    def __call__(self, operation: Operation) -> 'Image':
         value = operation.value()
         return self.client.post(
             operation._api_name(),
@@ -53,10 +55,10 @@ class Image:
         except KeyError as e:
             raise AttributeError(f'\'{self.__class__.__name__}\' object has no attribute \'{name}\'') from e
 
-        def inner(*args, **kwargs):
+        def inner(*args: Any, **kwargs: Any) -> 'Image':
             return self(operation_class(*args, **kwargs))
 
         return inner
 
-    def pipeline(self, *operations):
+    def pipeline(self, *operations: Operation) -> 'Image':
         return self(Pipeline(operations=operations))

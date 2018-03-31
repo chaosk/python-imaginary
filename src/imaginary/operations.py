@@ -1,18 +1,24 @@
 from typing import (
+    Iterable,
+    Any,
     Dict,
     List,
     Optional,
     Tuple,
     Type,
     Union,
+    Text,
+    Iterator,
 )
 
 from .registry import registry
+from .types import PipelineOperation, OperationWithFailureFlag
 
 
 class BaseOperation:
+    name: Text
 
-    def __init_subclass__(cls, **kwargs):
+    def __init_subclass__(cls: Type['BaseOperation'], **kwargs: Any) -> None:
         _registry = kwargs.get('registry', registry)
         super().__init_subclass__()
 
@@ -20,14 +26,17 @@ class BaseOperation:
             _registry.register(cls)
 
     @classmethod
-    def _name(cls):
-        return getattr(cls, 'name', cls.__name__.lower())
+    def _name(cls) -> Text:
+        try:
+            return cls.name
+        except AttributeError:
+            return cls.__name__.lower()
 
     @classmethod
-    def _api_name(cls):
+    def _api_name(cls) -> Text:
         return cls._name()
 
-    def __init__(self, *args, **kwargs) -> None:
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         self._arguments = expected_attrs = self.__annotations__.keys()
         for key, value in kwargs.items():
             if key not in expected_attrs:
@@ -74,22 +83,15 @@ class Zoom(Crop):
     factor: float
 
 
-IgnoreFailure = bool
-PipelineOperation = Union[
-    Operation,
-    Tuple[Operation, IgnoreFailure],
-]
-
-
 class Pipeline(Operation):
-    operations: List[PipelineOperation]
+    operations: Iterable[PipelineOperation]
 
-    def pipeline_values(self):
-        for operation in self.operations:
-            try:
-                operation, ignore_failure = operation
-            except (TypeError, ValueError):
-                ignore_failure = False
+    def pipeline_values(self) -> Iterator[dict]:
+        for operation_value in self.operations:
+            if isinstance(operation_value, tuple):
+                operation, ignore_failure = operation_value
+            else:
+                operation, ignore_failure = operation_value, False
             yield {
                 'operation': operation._name(),
                 'params': operation.value(),
