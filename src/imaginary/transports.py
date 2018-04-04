@@ -20,13 +20,24 @@ logger = logging.getLogger(__name__)
 
 
 class Transport(abc.ABC):
+    """Abstract interface for HTTP calls
+    """
 
     @abc.abstractmethod
     def get(self, url: Text, params: Params) -> Response:
+        """
+        :param url: URL to call GET with
+        :param params: Querystring parameters
+        """
         ...
 
     @abc.abstractmethod
     def post(self, url: Text, data: Params, files: Params) -> Response:
+        """
+        :param url: URL to call POST with
+        :param data: Data sent using multipart/form-data
+        :param files: A dictionary mapping form field name to file data
+        """
         ...
 
 

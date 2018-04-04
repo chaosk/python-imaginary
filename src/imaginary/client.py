@@ -21,6 +21,12 @@ __all__ = [
 
 
 class Imaginary:
+    """Client for Imaginary
+
+    :param url: URL to Imaginary instance
+    :param transport: HTTP transport object
+    """
+
     url: Text
 
     def __init__(
@@ -47,9 +53,13 @@ class Imaginary:
         )
 
     def health(self) -> Response:
+        """Returns health-check information for Imaginary instance
+        """
         return self.get('/health')
 
     def versions(self) -> Response:
+        """Returns version information for Imaginary instance
+        """
         return self.get('/')
 
     def __call__(self, file: IO[bytes]) -> Image:
