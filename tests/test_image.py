@@ -8,9 +8,9 @@ from imaginary.operations import Operation
 
 @pytest.fixture
 def client():
-    from imaginary.client import Imaginary
+    from imaginary.client import Client
     from imaginary.transports import MockTransport
-    return Imaginary(
+    return Client(
         url='http://test.invalid',
         transport=MockTransport(),
     )
