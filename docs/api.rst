@@ -8,9 +8,8 @@ Developer Interface
 Client
 ------
 
-.. module:: imaginary.client
-
 .. autoclass:: Imaginary
+   :special-members: __call__
    :inherited-members:
 
 Image
@@ -19,6 +18,7 @@ Image
 .. module:: imaginary.image
 
 .. autoclass:: Image
+   :special-members: __call__, __getattr__
    :inherited-members:
 
 Transports

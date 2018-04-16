@@ -1,11 +1,6 @@
-from io import BytesIO
-from typing import (
-    IO,
-    Text,
-)
+from typing import Text
 from urllib.parse import urljoin
 
-from .image import Image
 from .transports import (
     RequestsTransport,
     Transport,
@@ -16,18 +11,19 @@ from .types import (
 )
 
 __all__ = [
-    'Imaginary',
+    'Client',
 ]
 
 
-class Imaginary:
-    """Client for Imaginary
+class Client:
+    """HTTP client wrapper
 
-    :param url: URL to Imaginary instance
-    :param transport: HTTP transport object
+    :param url: Base URL for Imaginary service
+    :param transport: Transport used for calling Imaginary
     """
 
     url: Text
+    transport: Transport
 
     def __init__(
         self,
@@ -38,6 +34,12 @@ class Imaginary:
         self.transport = transport
 
     def post(self, path: Text, data: Params, files: Params) -> Response:
+        """Makes a POST request
+
+        :param path: Request path
+        :param data: Form data
+        :param files:
+        """
         url = urljoin(self.url, path)
         return self.transport.post(
             url=url,
@@ -46,29 +48,13 @@ class Imaginary:
         )
 
     def get(self, path: Text, params: Params = None) -> Response:
+        """Makes a GET request
+
+        :param path: Request path
+        :param params: Querystring parameters
+        """
         url = urljoin(self.url, path)
         return self.transport.get(
             url=url,
             params=params,
         )
-
-    def health(self) -> Response:
-        """Returns health-check information for Imaginary instance
-        """
-        return self.get('/health')
-
-    def versions(self) -> Response:
-        """Returns version information for Imaginary instance
-        """
-        return self.get('/')
-
-    def __call__(self, file: IO[bytes]) -> Image:
-        return Image(self, file)
-
-    def from_path(self, path: Text) -> Image:
-        with open(path, 'rb') as file:
-            return Image(self, file)
-
-    def from_bytes(self, bytes_: bytes) -> Image:
-        file = BytesIO(bytes_)
-        return Image(self, file)

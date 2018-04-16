@@ -7,15 +7,13 @@ from typing import (
     Type,
 )
 
+from .client import Client
 from .operations import (
     Operation,
     Pipeline,
 )
 from .registry import registry as default_registry
-
-if TYPE_CHECKING:
-    from .client import Imaginary
-    from .registry import Registry
+from .registry import Registry
 
 __all__ = [
     'Image',
@@ -23,21 +21,34 @@ __all__ = [
 
 
 class Image:
-    client: 'Imaginary'
-    registry: 'Registry'
+    """Represents an image that can be then
+    manipulated using :class:`~imaginary.operation.Operation` objects
+
+    :param client: Client instance
+    :param registry: Registry instance
+    :param file: BytesIO-like object representing image file
+    """
+
+    client: Client
+    registry: Registry
     file: IO[bytes]
 
     def __init__(
         self,
-        client: 'Imaginary',
+        client: Client,
         file: IO[bytes],
-        registry: 'Registry' = default_registry,
+        registry: Registry = default_registry,
     ) -> None:
         self.client = client
         self.file = file
         self.registry = registry
 
     def __call__(self, operation: Operation) -> bytes:
+        """Executes a given :class:`~imaginary.operation.Operation`
+        and returns a resulting image as bytes.
+
+        :param operation: Operation to execute
+        """
         value = operation.value()
         return self.client.post(
             operation._api_name(),
@@ -48,6 +59,18 @@ class Image:
         )
 
     def __getattr__(self, name: Text) -> Callable:
+        """Retrieves :class:`~imaginary.operation.Operation` from
+        :attr:`registry` and prepares a closure with said
+        :class:`~imaginary.operation.Operation` ready to be executed.
+
+        >>> image.zoom(factor=1.5)
+
+        is equivalent to:
+
+        >>> image(Zoom(factor=1.5))
+
+        :param name: Lowercase operation name
+        """
         try:
             operation_class: Type[Operation] = self.registry[name]
         except KeyError as e:
@@ -62,4 +85,9 @@ class Image:
         return inner
 
     def pipeline(self, *operations: Operation) -> bytes:
+        """Apply multiple operations sequentially in one request.
+
+        :param \*operations: List of :class:`~imaginary.operation.Operation`
+                             objects to apply
+        """
         return self(Pipeline(operations=operations))

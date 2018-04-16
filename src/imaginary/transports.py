@@ -28,6 +28,8 @@ class Transport(abc.ABC):
         """
         :param url: URL to call GET with
         :param params: Querystring parameters
+
+        :raises TransportError: Generic transport failure exception
         """
         ...
 
@@ -37,6 +39,8 @@ class Transport(abc.ABC):
         :param url: URL to call POST with
         :param data: Data sent using multipart/form-data
         :param files: A dictionary mapping form field name to file data
+
+        :raises TransportError: Generic transport failure exception
         """
         ...
 
@@ -53,6 +57,8 @@ class MockTransport(Transport):
 
 
 class RequestsTransport(Transport):
+    """HTTP tranport for Humans using :mod:`requests`
+    """
 
     def get(self, url: Text, params: Params) -> Response:
         response = requests.get(url, params=params)
