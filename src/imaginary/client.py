@@ -33,16 +33,24 @@ class Client:
         self.url = url
         self.transport = transport
 
-    def post(self, path: Text, data: Params, files: Params) -> Response:
+    def post(
+        self,
+        path: Text,
+        params: Params,
+        data: Params = None,
+        files: Params = None,
+    ) -> Response:
         """Makes a POST request
 
         :param path: Request path
+        :param params: Querystring parameters
         :param data: Form data
         :param files:
         """
         url = urljoin(self.url, path)
         return self.transport.post(
             url=url,
+            params=params,
             data=data,
             files=files,
         )

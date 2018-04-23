@@ -34,9 +34,16 @@ class Transport(abc.ABC):
         ...
 
     @abc.abstractmethod
-    def post(self, url: Text, data: Params, files: Params) -> Response:
+    def post(
+        self,
+        url: Text,
+        params: Params = None,
+        data: Params = None,
+        files: Params = None,
+    ) -> Response:
         """
         :param url: URL to call POST with
+        :param params: Querystring parameters
         :param data: Data sent using multipart/form-data
         :param files: A dictionary mapping form field name to file data
 
@@ -51,8 +58,19 @@ class MockTransport(Transport):
         logger.info('mocking GET %s (%s)', url, params)
         return Response()
 
-    def post(self, url: Text, data: Params, files: Params) -> Response:
-        logger.info('mocking POST %s (%s)', url, data)
+    def post(
+        self,
+        url: Text,
+        params: Params = None,
+        data: Params = None,
+        files: Params = None,
+    ) -> Response:
+        logger.info(
+            'mocking POST %s (params: %s, data: %s)',
+            url,
+            params,
+            data,
+        )
         return Response()
 
 
@@ -68,8 +86,14 @@ class RequestsTransport(Transport):
             raise TransportError(e) from e
         return response.content
 
-    def post(self, url: Text, data: Params, files: Params) -> Response:
-        response = requests.post(url, data=data, files=files)
+    def post(
+        self,
+        url: Text,
+        params: Params = None,
+        data: Params = None,
+        files: Params = None,
+    ) -> Response:
+        response = requests.post(url, params=params, data=data, files=files)
         try:
             response.raise_for_status()
         except requests.exceptions.RequestException as e:

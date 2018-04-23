@@ -42,7 +42,7 @@ def test_image_call(image, registry, mocker):
 
     image.client.post.assert_called_once_with(
         'testop',
-        data={
+        params={
             'foo': 1,
         },
         files={
@@ -61,7 +61,7 @@ def test_image_operation_as_attribute(image, registry, mocker):
 
     image.client.post.assert_called_once_with(
         'testop',
-        data={
+        params={
             'foo': 1,
         },
         files={
@@ -92,7 +92,7 @@ def test_image_pipeline_attribute(image, registry, mocker):
 
     image.client.post.assert_called_once_with(
         'pipeline',
-        data={
+        params={
             'operations': [
                 {
                     'operation': 'testop',

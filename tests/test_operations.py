@@ -1,3 +1,5 @@
+from typing import Optional
+
 import pytest
 
 from imaginary.operations import Operation
@@ -45,6 +47,39 @@ def test_operations_value(registry):
         'bar': 10,
     }
     assert TestOp(foo='baz', bar=10).value() == expected
+
+
+def test_operations_positional_arguments(registry):
+
+    class TestOp(Operation, registry=registry):
+        foo: str
+        bar: int
+
+    expected = {
+        'foo': 'baz',
+        'bar': 10,
+    }
+    assert TestOp('baz', 10).value() == expected
+
+
+def test_operations_cant_use_positional_argument_for_optional_params(registry):
+
+    class TestOp(Operation, registry=registry):
+        foo: str
+        bar: Optional[int]
+
+    with pytest.raises(TypeError) as e:
+        TestOp('baz', 10)
+
+
+def test_operations_multiple_values_for_required_param(registry):
+
+    class TestOp(Operation, registry=registry):
+        foo: str
+        bar: Optional[int]
+
+    with pytest.raises(TypeError) as e:
+        TestOp('baz', foo='baz?')
 
 
 def test_operations_missing_required_argument(registry):

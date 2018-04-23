@@ -52,7 +52,7 @@ class Image:
         value = operation.value()
         return self.client.post(
             operation._api_name(),
-            data=value,
+            params=value,
             files={
                 'file': self.file,
             },

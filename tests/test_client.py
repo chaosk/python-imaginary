@@ -26,9 +26,10 @@ def test_client_get(client, mocker):
 
 def test_client_post(client, mocker):
     mock = mocker.patch.object(client.transport, 'post')
-    client.post('/crop', data={'foo': 1}, files={})
+    client.post('/crop', params={'foo': 1})
     mock.assert_called_once_with(
         url='http://test.invalid/crop',
-        data={'foo': 1},
-        files={},
+        params={'foo': 1},
+        data=None,
+        files=None,
     )
