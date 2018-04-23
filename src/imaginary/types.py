@@ -10,7 +10,10 @@ from typing import (
 )
 
 if TYPE_CHECKING:
-    from .operations import Operation
+    from .operations import (
+        BaseOperation,
+        Operation,
+    )
 
 __all__ = [
     'IgnoreFailure',
@@ -26,7 +29,7 @@ __all__ = [
 IgnoreFailure = bool
 OperationWithFailureFlag = Tuple['Operation', IgnoreFailure]
 PipelineOperation = Union['Operation', OperationWithFailureFlag, ]
-TypeOperation = Type['Operation']
+TypeBaseOperation = Type['BaseOperation']
 
 RequiredParams = Dict[Text, Any]
 OptionalParams = Optional[RequiredParams]

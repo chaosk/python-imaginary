@@ -1,10 +1,14 @@
 from enum import Enum
-from typing import Tuple
+from typing import (
+    Any,
+    Text,
+    Tuple,
+)
 
 
 class EnumParam(Enum):
 
-    def serialize(self):
+    def serialize(self) -> Any:
         return self.value
 
 
@@ -42,10 +46,10 @@ class Color:
     green: int
     blue: int
 
-    def __init__(self, red: int, green: int, blue: int):
+    def __init__(self, red: int, green: int, blue: int) -> None:
         self.red = red
         self.green = green
         self.blue = blue
 
-    def serialize(self):
+    def serialize(self) -> Text:
         return f'{self.red},{self.green},{self.blue}'

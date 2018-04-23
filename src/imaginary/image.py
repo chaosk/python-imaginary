@@ -9,11 +9,11 @@ from typing import (
 
 from .client import Client
 from .operations import (
-    Operation,
+    BaseOperation,
     Pipeline,
 )
-from .registry import registry as default_registry
 from .registry import Registry
+from .registry import registry as default_registry
 
 __all__ = [
     'Image',
@@ -43,7 +43,7 @@ class Image:
         self.file = file
         self.registry = registry
 
-    def __call__(self, operation: Operation) -> bytes:
+    def __call__(self, operation: BaseOperation) -> bytes:
         """Executes a given :class:`~imaginary.operation.Operation`
         and returns a resulting image as bytes.
 
@@ -72,7 +72,7 @@ class Image:
         :param name: Lowercase operation name
         """
         try:
-            operation_class: Type[Operation] = self.registry[name]
+            operation_class: Type[BaseOperation] = self.registry[name]
         except KeyError as e:
             class_name = self.__class__.__name__
             raise AttributeError(
@@ -84,7 +84,7 @@ class Image:
 
         return inner
 
-    def pipeline(self, *operations: Operation) -> bytes:
+    def pipeline(self, *operations: BaseOperation) -> bytes:
         """Apply multiple operations sequentially in one request.
 
         :param \*operations: List of :class:`~imaginary.operation.Operation`

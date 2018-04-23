@@ -1,22 +1,22 @@
 from typing import (
     Any,
-    get_type_hints,
     Iterable,
     Iterator,
     Optional,
     Text,
     Type,
+    get_type_hints,
 )
 
-from .registry import Registry
-from .registry import registry as default_registry
 from .params import (
     Color,
     Colorspace,
     Extend,
     Gravity,
-    Type as TypeParam,
 )
+from .params import Type as TypeParam
+from .registry import Registry
+from .registry import registry as default_registry
 from .types import (
     Params,
     PipelineOperation,
@@ -103,7 +103,7 @@ class BaseOperation:
         )
         return f'<{self.__class__.__name__} {repr_attributes}>'
 
-    def _value(self, key):
+    def _value(self, key: Text) -> Any:
         value = getattr(self, key)
         try:
             return value.serialize()
