@@ -1,6 +1,5 @@
 from typing import (
     IO,
-    TYPE_CHECKING,
     Any,
     Callable,
     Text,

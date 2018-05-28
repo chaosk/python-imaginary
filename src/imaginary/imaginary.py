@@ -3,7 +3,6 @@ from typing import (
     IO,
     Text,
 )
-from urllib.parse import urljoin
 
 from .client import Client
 from .image import Image
@@ -11,10 +10,7 @@ from .transports import (
     RequestsTransport,
     Transport,
 )
-from .types import (
-    Params,
-    Response,
-)
+from .types import Response
 
 __all__ = [
     'Imaginary',

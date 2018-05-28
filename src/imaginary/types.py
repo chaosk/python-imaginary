@@ -10,7 +10,7 @@ from typing import (
 )
 
 if TYPE_CHECKING:
-    from .operations import (
+    from .operations import (  # noqa: F401
         BaseOperation,
         Operation,
     )
@@ -19,7 +19,6 @@ __all__ = [
     'IgnoreFailure',
     'OperationWithFailureFlag',
     'PipelineOperation',
-    'TypeOperation',
     'RequiredParams',
     'OptionalParams',
     'Params',

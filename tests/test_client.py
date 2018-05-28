@@ -1,9 +1,6 @@
-from io import BytesIO
-
 import pytest
 
 from imaginary.client import Client
-from imaginary.image import Image
 from imaginary.transports import MockTransport
 
 

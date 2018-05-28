@@ -122,7 +122,7 @@ class Operation(BaseOperation, abstract=True):
     rotate: Optional[int]
     flip: Optional[bool]
     flop: Optional[bool]
-    force: Optional[bool]
+    force: Optional[bool]  # noqa: E701
     norotation: Optional[bool]
     noprofile: Optional[bool]
     stripmeta: Optional[bool]

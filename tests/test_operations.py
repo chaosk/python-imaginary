@@ -68,7 +68,7 @@ def test_operations_cant_use_positional_argument_for_optional_params(registry):
         foo: str
         bar: Optional[int]
 
-    with pytest.raises(TypeError) as e:
+    with pytest.raises(TypeError):
         TestOp('baz', 10)
 
 
@@ -78,7 +78,7 @@ def test_operations_multiple_values_for_required_param(registry):
         foo: str
         bar: Optional[int]
 
-    with pytest.raises(TypeError) as e:
+    with pytest.raises(TypeError):
         TestOp('baz', foo='baz?')
 
 
