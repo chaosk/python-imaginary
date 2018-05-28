@@ -2,6 +2,11 @@ language: python
 
 sudo: false
 
+env:
+  global:
+    # Doctr deploy key for chaosk/python-imaginary
+    - secure: "WKhVIrd2/XXNgvo9Jb5swfRJvMUYBPunkA4V8zknYh8WDCeMk8+4b3DESCUEzPJ4/eq+Srs/v5pBFNB31IjrWrGHxpMVmw0QM2qYwoSB2I4JXZifnBfjQ2YEn/ZrGGoMgUdUBLutacDbt70D/bVH96FAOWk88l0zDJWu1UScZpwpe8mItZAyt6nLX1RNBz0q3jvRCOPcuh00iY2hSb49eOopt9GhHh/wJSB0iPWmNOsQU85cglyp4fWnhS0TQx84bwYyAqv/iFbEf15ejr3CY0bO/VYQL7+NdhpERGHoNNjbz6QMVj6kPT97vLlGnkVGzY8kV869KNnxSRJEY+V1d+6BT4rPaML2Z/90jd4AZ6EPr8TtN/6QLZaz9KNLQbSuoSJWMqhpoPPapqphiM6+bSkaaMzwTpLoNJ0X16pf/OLzkID9xuL4owKfGqXfeXnBeMWNPL23/xFwbeELRu3CGZjyQuYx9EJstGdX43lZdff7Ts0N+fyv973uGdYXDl8yDixxOizzZKJB2vYVqC0n9SaBNHKRGffDIcIxUyYfRaPds/2X0JGdTij9SYCt3IoW3vQVRQWbd6nKFzEzjZh0nWojnLYejt8yG2p8D7O7LUI551gqak26DcmcyLdzFT/+Lzu3xA9vx0IXFSemfAerAkFJclxvvXGUYiUbdqxUa30="
+
 matrix:
   include:
     - python: 3.6
@@ -15,6 +20,12 @@ install:
 script:
   - tox
   - mypy src/
+  - set -e
+  - pip install doctr
+  - cd docs
+  - make html
+  - cd ..
+  - doctr deploy . --built-docs docs/_build/html --key-path docs_deploy_key.enc
 
 after_success:
   - coveralls
