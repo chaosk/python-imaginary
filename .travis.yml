@@ -21,7 +21,6 @@ script:
   - tox
   - mypy src/
   - set -e
-  - pip install doctr
   - cd docs
   - make html
   - cd ..
